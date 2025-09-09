@@ -4,6 +4,7 @@
 package com.demo.app.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.Set;
 
 @Entity
@@ -22,6 +23,7 @@ public class User {
     private String name;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private Set<AccountAlias> accountAliases;
 
     // Getters and setters

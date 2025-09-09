@@ -21,7 +21,7 @@ public class AccountAliasController {
     private UserService userService;
 
     @PostMapping("/create/{userId}")
-    public ResponseEntity<?> createAlias(@PathVariable Long userId, @RequestBody AccountAlias alias) {
+    public ResponseEntity<?> createAlias(@PathVariable("userId") Long userId, @RequestBody AccountAlias alias) {
         if (aliasService.findByAlias(alias.getAlias()).isPresent()) {
             return ResponseEntity.badRequest().body("Alias already exists");
         }
@@ -34,13 +34,13 @@ public class AccountAliasController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getAlias(@PathVariable Long id) {
+    public ResponseEntity<?> getAlias(@PathVariable("id") Long id) {
         Optional<AccountAlias> alias = aliasService.findById(id);
         return alias.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateAlias(@PathVariable Long id, @RequestBody AccountAlias alias) {
+    public ResponseEntity<?> updateAlias(@PathVariable("id") Long id, @RequestBody AccountAlias alias) {
         Optional<AccountAlias> existing = aliasService.findById(id);
         if (existing.isEmpty()) {
             return ResponseEntity.notFound().build();
@@ -51,7 +51,7 @@ public class AccountAliasController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteAlias(@PathVariable Long id) {
+    public ResponseEntity<?> deleteAlias(@PathVariable("id") Long id) {
         aliasService.deleteById(id);
         return ResponseEntity.ok().build();
     }

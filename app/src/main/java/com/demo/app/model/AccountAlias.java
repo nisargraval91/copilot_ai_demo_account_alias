@@ -4,6 +4,7 @@
 package com.demo.app.model;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "account_alias", uniqueConstraints = @UniqueConstraint(columnNames = {"alias"}))
@@ -20,6 +21,7 @@ public class AccountAlias {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     // Getters and setters
